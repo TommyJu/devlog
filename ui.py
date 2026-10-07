@@ -1,14 +1,27 @@
 import curses
 from ascii_art import TIMER_ART
 
+# Color pair IDs
+STATUS_RUNNING = 1
+STATUS_PAUSED = 2
+TEXT = 3
+ART = 4
+
+# Layout
+START_DATETIME_Y = 1
+STATUS_Y = 2
+ELAPSED_TIME_Y = 3
+PADDING_X = 1
+PADDING_Y = 2
+
 def initialize_ui(stdscr):
     curses.start_color()
     stdscr.nodelay(True)
-    curses.init_pair(1, curses.COLOR_CYAN, curses.COLOR_BLACK)
-    curses.init_pair(2, curses.COLOR_RED, curses.COLOR_BLACK)
-    curses.init_pair(3, curses.COLOR_WHITE, curses.COLOR_BLACK)
-    curses.init_pair(4, curses.COLOR_MAGENTA, curses.COLOR_BLACK)
-    stdscr.bkgd(" ", curses.color_pair(3))
+    curses.init_pair(STATUS_RUNNING, curses.COLOR_CYAN, curses.COLOR_BLACK)
+    curses.init_pair(STATUS_PAUSED, curses.COLOR_RED, curses.COLOR_BLACK)
+    curses.init_pair(TEXT, curses.COLOR_WHITE, curses.COLOR_BLACK)
+    curses.init_pair(ART, curses.COLOR_MAGENTA, curses.COLOR_BLACK)
+    stdscr.bkgd(" ", curses.color_pair(TEXT))
     
     
 def render(app_state, stdscr):
@@ -34,30 +47,30 @@ def render(app_state, stdscr):
 def display_controls(stdscr):
     height, width = stdscr.getmaxyx()
     controls = "[Q] Quit  [SPACE] Pause/Resume"
-    stdscr.addstr(height - 2, 1, controls[:width - 1])
+    stdscr.addstr(height - PADDING_Y, PADDING_X, controls[:width - 1])
     
 def display_program_status(stdscr, is_running):
     if is_running:
-        stdscr.addstr(2, 1, "Program Status: RUNNING", curses.color_pair(1))
+        stdscr.addstr(STATUS_Y, PADDING_X, "Program Status: RUNNING", curses.color_pair(STATUS_RUNNING))
     else:
-        stdscr.addstr(2, 1, "Program Status: PAUSED", curses.color_pair(2))
+        stdscr.addstr(STATUS_Y, PADDING_X, "Program Status: PAUSED", curses.color_pair(STATUS_PAUSED))
     
     
 def display_elapsed_time(stdscr, message, is_running):
     if is_running:  
-        stdscr.addstr(3, 1, f"Elapsed Time: {message}", curses.color_pair(3) | curses.A_ITALIC)
+        stdscr.addstr(ELAPSED_TIME_Y, PADDING_X, f"Elapsed Time: {message}", curses.color_pair(TEXT) | curses.A_ITALIC)
     else:
-        stdscr.addstr(3, 1, f"Elapsed Time: {message}", curses.color_pair(3) | curses.A_ITALIC | curses.A_BLINK)
+        stdscr.addstr(ELAPSED_TIME_Y, PADDING_X, f"Elapsed Time: {message}", curses.color_pair(TEXT) | curses.A_ITALIC | curses.A_BLINK)
         
 def display_start_datetime(stdscr, message):
-    stdscr.addstr(1, 1, f"Session Start: {message}", curses.color_pair(3) | curses.A_DIM)
+    stdscr.addstr(START_DATETIME_Y, PADDING_X, f"Session Start: {message}", curses.color_pair(TEXT) | curses.A_DIM)
     
     
 def display_art(stdscr, y, x):
 
     height, width = stdscr.getmaxyx()
 
-    controls_y = height - 2
+    controls_y = height - PADDING_Y
 
     for row, line in enumerate(TIMER_ART.splitlines()):
 
@@ -68,7 +81,7 @@ def display_art(stdscr, y, x):
             break
 
         # Clip the right side if necessary
-        available_width = width - x - 1
+        available_width = width - x - PADDING_X
 
         if available_width <= 0:
             break
@@ -77,6 +90,6 @@ def display_art(stdscr, y, x):
             current_y,
             x,
             line[:available_width],
-            curses.color_pair(4)
+            curses.color_pair(ART)
         )
     

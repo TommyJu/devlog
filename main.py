@@ -6,8 +6,6 @@ from ui import initialize_ui, render
 
 
 def main(stdscr):
-    
-    
     # Initialization
     initialize_ui(stdscr)
     app_state = AppState()

@@ -1,4 +1,3 @@
-from time import time
 from ScreenState import ScreenState
 import curses
 from save_session import save_session

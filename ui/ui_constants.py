@@ -1,4 +1,13 @@
-# Color pair IDs for curses text color
+import curses
+
+# Color theme
+STATUS_RUNNING_COLOR = curses.COLOR_CYAN
+STATUS_PAUSED_COLOR = curses.COLOR_RED
+TEXT_COLOR = curses.COLOR_WHITE
+ART_COLOR = curses.COLOR_MAGENTA
+BACKGROUND_COLOR = curses.COLOR_BLACK
+
+# Color pair IDs
 STATUS_RUNNING_COLOR_ID = 1
 STATUS_PAUSED_COLOR_ID = 2
 TEXT_COLOR_ID = 3

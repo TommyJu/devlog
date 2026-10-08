@@ -1,6 +1,15 @@
 import curses
-from curses.textpad import Textbox
-from ui.ui_constants import STATUS_PAUSED_COLOR_ID, STATUS_RUNNING_COLOR_ID, TEXT_COLOR_ID, ART_COLOR_ID, ART_Y, PADDING_X, PADDING_Y
+from ui.ui_constants import (
+    STATUS_RUNNING_COLOR_ID,
+    STATUS_PAUSED_COLOR_ID,
+    TEXT_COLOR_ID,
+    ART_COLOR_ID,
+    STATUS_RUNNING_COLOR,
+    STATUS_PAUSED_COLOR,
+    TEXT_COLOR,
+    ART_COLOR,
+    BACKGROUND_COLOR,
+)
 
 from ui.render_timer import render_timer
 from ui.render_save_session import render_save_session
@@ -11,10 +20,10 @@ from ScreenState import ScreenState
 def initialize_ui(stdscr):
     curses.start_color()
     stdscr.nodelay(True)
-    curses.init_pair(STATUS_RUNNING_COLOR_ID, curses.COLOR_CYAN, curses.COLOR_BLACK)
-    curses.init_pair(STATUS_PAUSED_COLOR_ID, curses.COLOR_RED, curses.COLOR_BLACK)
-    curses.init_pair(TEXT_COLOR_ID, curses.COLOR_WHITE, curses.COLOR_BLACK)
-    curses.init_pair(ART_COLOR_ID, curses.COLOR_MAGENTA, curses.COLOR_BLACK)
+    curses.init_pair(STATUS_RUNNING_COLOR_ID, STATUS_RUNNING_COLOR, BACKGROUND_COLOR)
+    curses.init_pair(STATUS_PAUSED_COLOR_ID, STATUS_PAUSED_COLOR, BACKGROUND_COLOR)
+    curses.init_pair(TEXT_COLOR_ID, TEXT_COLOR, BACKGROUND_COLOR)
+    curses.init_pair(ART_COLOR_ID, ART_COLOR, BACKGROUND_COLOR)
     stdscr.bkgd(" ", curses.color_pair(TEXT_COLOR_ID))
     
     

@@ -8,8 +8,6 @@ STATUS_Y = 2
 ELAPSED_SECONDS_Y = 3
 
 
-
-
 def render_timer(timer, stdscr):
     display_art(stdscr)
     display_controls(stdscr)

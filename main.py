@@ -5,6 +5,7 @@ from ui.render import initialize_ui, render
 from AppState import AppState
 from ScreenState import ScreenState
 
+
 def main(stdscr):
     # Initialization
     initialize_ui(stdscr)
@@ -29,8 +30,7 @@ def main(stdscr):
                 time.sleep(0.03)
             else:
                 time.sleep(0.3)
-        
-        # TODO: Handle session save
+
     except KeyboardInterrupt:
         pass
     

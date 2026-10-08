@@ -1,6 +1,7 @@
 from time import time
 from ScreenState import ScreenState
 import curses
+from save_session import save_session
 
 def handle_input(stdscr, app_state):
     key = stdscr.getch()
@@ -16,21 +17,15 @@ def handle_input(stdscr, app_state):
 
 # Helper Functions ---------------    
 def handle_timer_screen_input(key, app_state):
-    timer = app_state.timer
-    
+    # Pause/resume
     if key == ord(" "):
-        if not timer.paused:
-            # Save the time accumulated before pausing
-            timer.elapsed_accumulated += time() - timer.start
-            timer.paused = True
+        app_state.timer.toggle_pause()
 
-        else:
-            # Start a new timing period
-            timer.start = time()
-            timer.paused = False
-
+    # End Session
     elif key == ord("q"):
+        app_state.timer.stop_timer()
         app_state.screen = ScreenState.SAVE_SESSION
+        
         
 def handle_save_session_input(key, app_state):
     if key in (ord("y"), ord("Y")):
@@ -41,6 +36,7 @@ def handle_save_session_input(key, app_state):
         
 def handle_session_notes_input(key, app_state):
     if key in (curses.KEY_ENTER, 10):
+        save_session(app_state)
         app_state.running = False
 
     elif key in (curses.KEY_BACKSPACE, 127, 8):

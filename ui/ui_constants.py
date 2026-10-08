@@ -1,0 +1,10 @@
+# Color pair IDs for curses text color
+STATUS_RUNNING_COLOR_ID = 1
+STATUS_PAUSED_COLOR_ID = 2
+TEXT_COLOR_ID = 3
+ART_COLOR_ID = 4
+
+# Layout
+PADDING_X = 1
+PADDING_Y = 2
+ART_Y = 5

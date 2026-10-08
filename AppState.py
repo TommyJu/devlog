@@ -6,3 +6,4 @@ class AppState:
         self.running = True
         self.screen = ScreenState.TIMER
         self.timer = Timer()
+        self.session_notes = ""

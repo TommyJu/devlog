@@ -3,6 +3,8 @@ from curses.textpad import Textbox
 from ui.ui_constants import STATUS_PAUSED_COLOR_ID, STATUS_RUNNING_COLOR_ID, TEXT_COLOR_ID, ART_COLOR_ID, ART_Y, PADDING_X, PADDING_Y
 
 from ui.render_timer import render_timer
+from ui.render_save_session import render_save_session
+from ui.render_session_notes import render_session_notes
 from ScreenState import ScreenState
 
 
@@ -22,14 +24,11 @@ def render(stdscr, app_state):
     if app_state.screen == ScreenState.TIMER:
         render_timer(app_state.timer, stdscr)
         
-    ...
+    if app_state.screen == ScreenState.SAVE_SESSION:
+        render_save_session(stdscr)
         
-    
+    if app_state.screen == ScreenState.SESSION_NOTES:
+        render_session_notes(stdscr, app_state.session_notes)
+        
 
-# Helper Functions ---------------------
-def ask_to_save_session(stdscr):
-    ...
-        
-def ask_for_notes(stdscr):
-    ...
     

@@ -1,5 +1,5 @@
 import curses
-from ui.ui_constants import STATUS_PAUSED_COLOR_ID, STATUS_RUNNING_COLOR_ID, TEXT_COLOR_ID, PADDING_X, PADDING_Y
+from ui.ui_constants import STATUS_PAUSED_COLOR_ID, STATUS_RUNNING_COLOR_ID, PADDING_X, PADDING_Y
 from ui.display_art import display_art
 
 # Layout
@@ -30,7 +30,7 @@ def render_timer(timer, stdscr):
 def display_controls(stdscr):
     height, width = stdscr.getmaxyx()
     controls = "[Q] Quit  [SPACE] Pause/Resume"
-    stdscr.addstr(height - PADDING_Y, PADDING_X, controls[:width - 1])
+    stdscr.addstr(height - PADDING_Y, PADDING_X, controls[:width - PADDING_X])
     
 def display_program_status(stdscr, is_running):
     if is_running:
@@ -41,10 +41,10 @@ def display_program_status(stdscr, is_running):
     
 def display_elapsed_time(stdscr, message, is_running):
     if is_running:  
-        stdscr.addstr(ELAPSED_TIME_Y, PADDING_X, f"Elapsed Time: {message}", curses.color_pair(TEXT_COLOR_ID) | curses.A_ITALIC)
+        stdscr.addstr(ELAPSED_TIME_Y, PADDING_X, f"Elapsed Time: {message}", curses.A_ITALIC)
     else:
-        stdscr.addstr(ELAPSED_TIME_Y, PADDING_X, f"Elapsed Time: {message}", curses.color_pair(TEXT_COLOR_ID) | curses.A_ITALIC | curses.A_BLINK)
+        stdscr.addstr(ELAPSED_TIME_Y, PADDING_X, f"Elapsed Time: {message}", curses.A_ITALIC | curses.A_BLINK)
         
 def display_start_datetime(stdscr, message):
-    stdscr.addstr(START_DATETIME_Y, PADDING_X, f"Session Start: {message}", curses.color_pair(TEXT_COLOR_ID) | curses.A_DIM)
+    stdscr.addstr(START_DATETIME_Y, PADDING_X, f"Session Start: {message}", curses.A_DIM)
     

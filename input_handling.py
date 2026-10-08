@@ -1,5 +1,6 @@
 from time import time
 from ScreenState import ScreenState
+import curses
 
 def handle_input(stdscr, app_state):
     key = stdscr.getch()
@@ -39,4 +40,11 @@ def handle_save_session_input(key, app_state):
         app_state.running = False
         
 def handle_session_notes_input(key, app_state):
-    ...
+    if key in (curses.KEY_ENTER, 10):
+        app_state.running = False
+
+    elif key in (curses.KEY_BACKSPACE, 127, 8):
+        app_state.session_notes = app_state.session_notes[:-1]
+
+    elif 32 <= key <= 126:
+        app_state.session_notes += chr(key)
